@@ -367,29 +367,32 @@ footer.site p{font-size:.94rem;margin:.4rem 0}
 @keyframes loader-failsafe{to{opacity:0;visibility:hidden}}
 #loader[hidden]{display:none}
 #loader.done{clip-path:inset(0 0 100% 0);transition:clip-path .8s cubic-bezier(.76,0,.24,1)}
-.loader-inner{display:flex;justify-content:space-between;align-items:end;gap:1rem;position:relative;z-index:4}
+.loader-inner{display:flex;justify-content:space-between;align-items:end;gap:1rem;position:relative;z-index:2}
 .loader-name{font-family:var(--serif);font-size:clamp(1.6rem,5vw,2.6rem);letter-spacing:.13em;font-weight:700}
 .loader-name span{color:var(--brass)}
 .loader-count{font-family:var(--serif);font-size:clamp(1.6rem,5vw,2.6rem);font-variant-numeric:tabular-nums;color:var(--brass)}
-.loader-bar{height:2px;background:var(--brass);margin-top:14px;transform:scaleX(0);transform-origin:left;position:relative;z-index:4}
+.loader-bar{height:2px;background:var(--brass);margin-top:14px;transform:scaleX(0);transform-origin:left;position:relative;z-index:2}
 /* scroll intro choreography: pure CSS, timed from first paint, so it plays
-   identically with or without the motion engine. Stage A: draped maroon edge
-   + wordmark. Stage B: the Awadhi arch slides in, details line the left edge,
-   the serif line settles. Stage C is the loader's own wipe up into the hero. */
-.intro-drape{position:absolute;top:0;left:0;right:0;height:118px;background:var(--maroon-deep);z-index:1;animation:intro-drape 2.5s cubic-bezier(.22,1,.36,1) both}
-.intro-drape::before{content:"";position:absolute;inset:0;background-image:linear-gradient(45deg,transparent 46%,var(--gilt) 46%,var(--gilt) 54%,transparent 54%),linear-gradient(-45deg,transparent 46%,var(--gilt) 46%,var(--gilt) 54%,transparent 54%);background-size:26px 26px;background-position:center;opacity:.28}
+   identically with or without the motion engine. Stage A: a full-screen
+   maroon draped curtain (fabric folds, jaali band + wavy scalloped edge at
+   its lower edge) with the wordmark fading in light-on-maroon. Stage B: the
+   curtain lifts upward like a raised drape, revealing the Awadhi arch sliding
+   in, details lining the left edge, and the serif line settling. Stage C is
+   the loader's own wipe up into the hero. */
+.intro-drape{position:absolute;inset:0;background-color:var(--maroon-deep);background-image:repeating-linear-gradient(90deg,rgba(0,0,0,.20) 0,rgba(0,0,0,0) 34px,rgba(255,232,214,.06) 62px,rgba(0,0,0,.14) 96px,rgba(0,0,0,0) 128px);z-index:3;box-shadow:0 34px 70px rgba(29,26,19,.4);animation:intro-drape 2.5s cubic-bezier(.22,1,.36,1) both}
+.intro-drape::before{content:"";position:absolute;left:0;right:0;bottom:0;height:118px;background-image:linear-gradient(45deg,transparent 46%,var(--gilt) 46%,var(--gilt) 54%,transparent 54%),linear-gradient(-45deg,transparent 46%,var(--gilt) 46%,var(--gilt) 54%,transparent 54%);background-size:26px 26px;background-position:center;opacity:.22}
 .intro-drape::after{content:"";position:absolute;left:0;right:0;bottom:-23px;height:24px;background:radial-gradient(circle at 24px -6px,transparent 21px,var(--maroon-deep) 22px);background-size:48px 24px;background-repeat:repeat-x}
-@keyframes intro-drape{from{transform:translateY(-105%)}to{transform:translateY(0)}}
-.intro-mark{position:absolute;inset:0;display:grid;place-items:center;z-index:2;pointer-events:none;animation:intro-mark 2.5s cubic-bezier(.22,1,.36,1) both}
-.intro-mark .im-name{font-family:var(--serif);font-weight:600;letter-spacing:.24em;font-size:clamp(1.9rem,6.5vw,3.4rem);color:var(--ink)}
-.intro-mark .im-name span{color:var(--brass)}
-.intro-mark .im-sub{display:block;text-align:center;font-family:var(--sans);font-size:.6rem;letter-spacing:.38em;font-weight:700;color:var(--ink-faint);margin-top:.6rem}
-@keyframes intro-mark{0%{opacity:0;transform:scale(.94)}22%{opacity:1;transform:scale(1)}58%{opacity:1}78%,100%{opacity:0;transform:scale(1.015)}}
+@keyframes intro-drape{0%,36%{transform:translateY(0)}66%,100%{transform:translateY(-104%)}}
+.intro-mark{position:absolute;inset:0;display:grid;place-items:center;z-index:4;pointer-events:none;animation:intro-mark 2.5s cubic-bezier(.22,1,.36,1) both}
+.intro-mark .im-name{font-family:var(--serif);font-weight:600;letter-spacing:.24em;font-size:clamp(1.9rem,6.5vw,3.4rem);color:#fdf3ec}
+.intro-mark .im-name span{color:var(--gilt)}
+.intro-mark .im-sub{display:block;text-align:center;font-family:var(--sans);font-size:.6rem;letter-spacing:.38em;font-weight:700;color:rgba(246,232,221,.78);margin-top:.6rem}
+@keyframes intro-mark{0%{opacity:0;transform:scale(.94)}16%{opacity:1;transform:scale(1)}38%{opacity:1}54%,100%{opacity:0;transform:scale(1.015)}}
 .intro-arch{position:absolute;top:0;bottom:0;left:max(calc(4vw + 76px),96px);width:min(400px,74vw);z-index:2;display:flex;align-items:center;animation:intro-arch 2.5s cubic-bezier(.22,1,.36,1) both}
 .intro-arch .ia-frame{width:100%;height:min(66vh,540px);background:var(--maroon);border-radius:999px 999px 8px 8px;padding:12px;box-shadow:0 30px 60px rgba(29,26,19,.25)}
 .intro-arch .ia-frame img{width:100%;height:100%;object-fit:cover;border-radius:999px 999px 5px 5px}
 @keyframes intro-arch{0%,34%{transform:translateX(-112%);opacity:.4}58%,100%{transform:translateX(0);opacity:1}}
-.intro-details{position:absolute;left:max(4vw,26px);top:50%;transform:translateY(-50%);z-index:3;display:flex;flex-direction:column;gap:.7rem}
+.intro-details{position:absolute;left:max(4vw,26px);top:50%;transform:translateY(-50%);z-index:2;display:flex;flex-direction:column;gap:.7rem}
 .intro-details img{width:52px;height:66px;object-fit:cover;border-radius:999px 999px 4px 4px;border:2px solid var(--cotton);box-shadow:0 10px 22px rgba(29,26,19,.22);opacity:0;animation:intro-detail .7s ease both}
 .intro-details img:nth-child(1){animation-delay:1.15s}
 .intro-details img:nth-child(2){animation-delay:1.3s}
@@ -401,17 +404,15 @@ footer.site p{font-size:.94rem;margin:.4rem 0}
 @media (prefers-color-scheme: dark){.intro-line p em{color:#e0a49e}}
 @keyframes intro-line-in{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 @media(max-width:1100px) and (min-width:701px){.intro-line p{margin-left:min(210px,18vw);font-size:clamp(1.35rem,3.4vw,2rem)}}
-.intro-skip{position:absolute;top:132px;right:22px;z-index:5;background:transparent;border:1px solid var(--line);color:var(--ink-soft);border-radius:999px;padding:.42rem .95rem;font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
-.intro-skip:hover{border-color:var(--maroon);color:var(--maroon)}
+.intro-skip{position:absolute;top:22px;right:22px;z-index:5;background:rgba(29,26,19,.28);border:1px solid rgba(246,232,221,.55);color:#fdf3ec;border-radius:999px;padding:.42rem .95rem;font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
+.intro-skip:hover{border-color:var(--gilt);color:var(--gilt)}
 @media(max-width:700px){
-  .intro-drape{height:84px}
   .intro-arch{left:50%;transform:none;width:min(270px,68vw);animation:intro-arch-m 2.5s cubic-bezier(.22,1,.36,1) both}
   .intro-arch .ia-frame{height:min(46vh,400px)}
   @keyframes intro-arch-m{0%,34%{transform:translateX(-160%);opacity:.4}58%,100%{transform:translateX(-50%);opacity:1}}
   .intro-details{display:none}
   .intro-line{place-items:end center;padding-bottom:15vh}
   .intro-line p{margin-left:0;font-size:clamp(1.3rem,5.6vw,1.7rem)}
-  .intro-skip{top:100px}
 }
 .loader-corners{position:absolute;inset:22px;pointer-events:none}
 .loader-corners .lc{position:absolute;width:30px;height:30px;border:0 solid var(--gilt);transition:all .9s cubic-bezier(.76,0,.24,1)}
